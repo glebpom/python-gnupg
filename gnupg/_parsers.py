@@ -1119,6 +1119,7 @@ class ListKeys(list):
         self.sigs = {}
         self.certs = {}
         self.revs = {}
+        self.keygrips = []
 
     def key(self, args):
         vars = ("""
@@ -1146,6 +1147,10 @@ class ListKeys(list):
     def fpr(self, args):
         self.curkey['fingerprint'] = args[9]
         self.fingerprints.append(args[9])
+
+    def grp(self, args):
+        self.curkey['keygrip'] = args[9]
+        self.keygrips.append(args[9])
 
     def uid(self, args):
         uid = args[9]

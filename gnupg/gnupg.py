@@ -473,8 +473,11 @@ class GPG(GPGBase):
         if secret:
             which = 'secret-keys'
         args = "--list-%s --fixed-list-mode --fingerprint " % (which,)
-        args += "--with-colons --list-options no-show-photos"
+        args += "--with-colons --list-options no-show-photos "
+        args += "--with-keygrip"
         args = [args]
+
+        print(args)
         p = self._open_subprocess(args)
 
         # there might be some status thingumy here I should handle... (amk)
@@ -580,7 +583,7 @@ class GPG(GPGBase):
     def _parse_keys(self, result):
         lines = result.data.decode(self._encoding,
                                    self._decode_errors).splitlines()
-        valid_keywords = 'pub uid sec fpr sub sig rev'.split()
+        valid_keywords = 'pub uid sec fpr sub sig rev grp'.split()
         for line in lines:
             if self.verbose:
                 print(line)
